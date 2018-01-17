@@ -13,8 +13,8 @@ $name = "";
 		$other = "";
  ?>
 <?php 
-	if (isset($_POST['edit'])) {
-		$id = $_POST['edit'];
+	if (isset($_POST['update'])) {
+		$id = $_POST['id'];
 		$update = true;
 		$record = mysqli_query($db, "SELECT * FROM admintb WHERE id=$id");
 
@@ -50,14 +50,20 @@ $('#theDate').attr('value', today);
 		?>
 	</div>
 <?php endif ?>
-<?php $results = mysqli_query($db, "SELECT * FROM admintb"); ?>
+<?php  
+	
+$results = mysqli_query($db, "SELECT * FROM comp_tb");
+while ($row = mysqli_fetch_array($results)) {
+	$id=$row['id']; 
+}
+	?>
 
 
 	<form method="post" action="cs_connect.php" >
 		<div class="input-group">
 		
 
-			<label>Complaint Number	<?php echo $id; ?></label>
+			<label>Complaint Number	<?php echo $id+1; ?></label>
 			<input type="hidden" id="theDate" name="datee" value="<?php $datee=date("d-m-Y"); echo $datee;?>">
 			<span  id="theDate" name="date_in" > Date <?php echo date("d-m-Y");?></span> 
 		</div>
@@ -67,7 +73,7 @@ $('#theDate').attr('value', today);
 		</div>
 		<div class="input-group">
 			<label>Department</label>
-			<select name="it_dep" style="width: 174px;">
+			<select name="department" style="width: 174px;">
   <option value="tdesk">T Desk</option>
   <option value="headoffice">Head Office</option>
     <option value="delta">T Desk</option>
